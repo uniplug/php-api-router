@@ -1,0 +1,27 @@
+{
+    "name": "uniplug/php-api-router",
+    "type": "library",
+    "description": "Simple PHP Router, supports REST and reverse routing.",
+    "keywords": ["router", "routing", "php", "rest"],
+    "homepage": "https://github.com/uniplug/php-api-router",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "UniPlug",
+            "email": "tech@uniplug.ru",
+            "homepage": "http://uniplug.ru/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "squizlabs/php_codesniffer": "~1.5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "APIRouter\\": "src/APIRouter/"
+        }
+    }
+}
