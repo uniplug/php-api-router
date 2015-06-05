@@ -2,8 +2,6 @@
 
 namespace APIRouter;
 
-use Exception;
-
 /**
  * Routing class to match request URL's against given routes and map them to a controller action.
  */
@@ -127,7 +125,7 @@ class Router {
 	public function generate($routeName, array $params = array()) {
 		// Check if route exists
 		if ( !isset($this->namedRoutes[$routeName]) ) {
-			throw new Exception("No route with the name $routeName has been found.");
+			throw new \Exception("No route with the name $routeName has been found.");
 		}
 
 		$route = $this->namedRoutes[$routeName];
@@ -168,65 +166,65 @@ class Router {
 					$collection->attachRoute(
 						new Route(
 							$route, array(
-							'_controller' => $route . '#index',
-							'method'      => 'get'
-						)
+								'_controller' => $route . '#index',
+								'method'      => 'get'
+							)
 						)
 					);
 					$collection->attachRoute(
 						new Route(
 							$route . '/new', array(
-							'_controller' => $route . '#new',
-							'method'      => 'get'
-						)
+								'_controller' => $route . '#new',
+								'method'      => 'get'
+							)
 						)
 					);
 					$collection->attachRoute(
 						new Route(
 							$route, array(
-							'_controller' => $route . '#create',
-							'method'      => 'post'
-						)
+								'_controller' => $route . '#create',
+								'method'      => 'post'
+							)
 						)
 					);
 					$collection->attachRoute(
 						new Route(
 							$route . '/:id', array(
-							'_controller' => $route . '#show',
-							'method'      => 'get'
-						)
+								'_controller' => $route . '#show',
+								'method'      => 'get'
+							)
 						)
 					);
 					$collection->attachRoute(
 						new Route(
 							$route . '/:id/edit', array(
-							'_controller' => $route . '#edit',
-							'method'      => 'get'
-						)
-						)
-					);
-					$collection->attachRoute(
-						new Route(
-							$route . '/:id', array(
-							'_controller' => $route . '#update',
-							'method'      => 'patch'
-						)
+								'_controller' => $route . '#edit',
+								'method'      => 'get'
+							)
 						)
 					);
 					$collection->attachRoute(
 						new Route(
 							$route . '/:id', array(
-							'_controller' => $route . '#update',
-							'method'      => 'put'
-						)
+								'_controller' => $route . '#update',
+								'method'      => 'patch'
+							)
 						)
 					);
 					$collection->attachRoute(
 						new Route(
 							$route . '/:id', array(
-							'_controller' => $route . '#destroy',
-							'method'      => 'delete'
+								'_controller' => $route . '#update',
+								'method'      => 'put'
+							)
 						)
+					);
+					$collection->attachRoute(
+						new Route(
+							$route . '/:id', array(
+								'_controller' => $route . '#destroy',
+								'method'      => 'delete'
+							)
 						)
 					);
 					break;
@@ -239,9 +237,9 @@ class Router {
 						$collection->attachRoute(
 							new Route(
 								$arActions[1], array(
-								'_controller' => $route,
-								'method'      => $arActions[0]
-							)
+									'_controller' => $route,
+									'method'      => $arActions[0]
+								)
 							)
 						);
 					}

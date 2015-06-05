@@ -12,7 +12,7 @@ A simple Rails inspired PHP router class.
 ```javascript
 {
     "require": {
-        "dannyvankooten/php-router": "dev-master"
+        "uniplug/php-api-router": "dev-master"
     }
 }
 ```
@@ -62,15 +62,11 @@ $routes = [
 ];
 
 $router = Router::load($routes);
-$router->setBasePath('/PHP-Router');
+$router->setBasePath('/api');
 $router->matchCurrentRequest();
 
 var_dump($route);
 ```
-## More information
-Have a look at the example.php file or read trough the class' documentation for a better understanding on how to use this class.
-
-If you like PHP Router you might also like [AltoRouter](//github.com/dannyvankooten/AltoRouter).
 
 ## License
 MIT Licensed, http://www.opensource.org/licenses/MIT

@@ -2,8 +2,6 @@
 
 namespace APIRouter;
 
-use yii\base\Exception;
-
 class Route {
 	/**
 	 * URL of this Route
@@ -126,10 +124,11 @@ class Route {
 
 	public function dispatch() {
 		$action = explode('#', $this->config['_controller']);
+		if ( !is_subclass_of($action[0], 'APIRouter\Controller') ) {
+			throw new \Exception;
+		};
 		$instance = new $action[0];
-		$result = call_user_func_array(array($instance, $action[1]), $this->parameters);
-		if (!$result) {
-			//throw new \Exception;
-		}
+		$params = array($action[1], array($this->parameters));
+		call_user_func_array(array($instance, '__callInvoke'), $params);
 	}
 }
