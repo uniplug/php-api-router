@@ -59,4 +59,14 @@ class Controller {
 			throw new \Exception;
 		}
 	}
+
+	public static function className($method = NULL) {
+		$class = get_called_class();
+		if ( $method ) {
+			$class = $class . '#' . ((string) $method);
+		}
+
+		return $class;
+	}
+
 }

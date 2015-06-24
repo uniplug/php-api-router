@@ -117,7 +117,7 @@ class Router {
 	 * @param       $routeName
 	 * @param array $params Optional array of parameters to use in URL
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
 	 * @internal param string $route_name The name of the route to reverse route.
 	 * @return string The url to the route
@@ -165,7 +165,7 @@ class Router {
 				case 'resources':
 					$collection->attachRoute(
 						new Route(
-							$route, array(
+							$arActions[1], array(
 								'_controller' => $route . '#index',
 								'method'      => 'get'
 							)
@@ -173,7 +173,7 @@ class Router {
 					);
 					$collection->attachRoute(
 						new Route(
-							$route . '/new', array(
+							$arActions[1] . '/new', array(
 								'_controller' => $route . '#new',
 								'method'      => 'get'
 							)
@@ -181,7 +181,7 @@ class Router {
 					);
 					$collection->attachRoute(
 						new Route(
-							$route, array(
+							$arActions[1], array(
 								'_controller' => $route . '#create',
 								'method'      => 'post'
 							)
@@ -189,7 +189,7 @@ class Router {
 					);
 					$collection->attachRoute(
 						new Route(
-							$route . '/:id', array(
+							$arActions[1] . '/:id', array(
 								'_controller' => $route . '#show',
 								'method'      => 'get'
 							)
@@ -197,7 +197,7 @@ class Router {
 					);
 					$collection->attachRoute(
 						new Route(
-							$route . '/:id/edit', array(
+							$arActions[1] . '/:id/edit', array(
 								'_controller' => $route . '#edit',
 								'method'      => 'get'
 							)
@@ -205,7 +205,7 @@ class Router {
 					);
 					$collection->attachRoute(
 						new Route(
-							$route . '/:id', array(
+							$arActions[1] . '/:id', array(
 								'_controller' => $route . '#update',
 								'method'      => 'patch'
 							)
@@ -213,7 +213,7 @@ class Router {
 					);
 					$collection->attachRoute(
 						new Route(
-							$route . '/:id', array(
+							$arActions[1] . '/:id', array(
 								'_controller' => $route . '#update',
 								'method'      => 'put'
 							)
@@ -221,7 +221,7 @@ class Router {
 					);
 					$collection->attachRoute(
 						new Route(
-							$route . '/:id', array(
+							$arActions[1] . '/:id', array(
 								'_controller' => $route . '#destroy',
 								'method'      => 'delete'
 							)
