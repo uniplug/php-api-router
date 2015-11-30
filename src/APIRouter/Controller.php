@@ -7,7 +7,7 @@ class InvalidAuthenticityToken extends \Exception {
 
 class Controller {
 
-	private function protect_from_forgery($arParams = array()) {
+	private static function protect_from_forgery($arParams = array()) {
 		$arParams = (array) $arParams;
 		$result = false;
 		global $USER;
@@ -17,7 +17,7 @@ class Controller {
 			$result = $GLOBALS['HTTP_X_CSRF_TOKEN'] == bitrix_sessid();
 		}
 
-		if ( !$result && $arParams['with'] == 'exception' ) {
+		if ( !$result && $arParams['with'] === 'exception' ) {
 			throw new InvalidAuthenticityToken;
 		}
 
@@ -39,18 +39,35 @@ class Controller {
 		if ( method_exists($this, $method) ) {
 			$rules = $this->rules();
 			$can_call = true;
+
+			if ( !isset($rules['before_action']) ) {
+				$rules['before_action'] = [];
+			} elseif ( !is_array($rules['before_action']) ) {
+				$rules['before_action'] = [[(string) $rules['before_action'], []]];
+			}
+
 			$protect_from_forgery = true;
 			if ( isset($rules['protect_from_forgery']) ) {
 				if ( isset($rules['protect_from_forgery']['except']) ) {
 					$rules['protect_from_forgery']['except'] = (array) $rules['protect_from_forgery']['except'];
-					if ( in_array($method, $rules['protect_from_forgery']['except']) ) {
+					if ( in_array($method, $rules['protect_from_forgery']['except'], true) ) {
 						$protect_from_forgery = false;
 					}
 				}
 				if ( $protect_from_forgery ) {
-					$can_call = $this->protect_from_forgery($rules['protect_from_forgery']);
+					array_unshift($rules['before_action'], ['protect_from_forgery', $rules['protect_from_forgery']]);
 				}
 			}
+
+			foreach ($rules['before_action'] as $arAction) {
+				if ( !$can_call ) {
+					break;
+				}
+
+				$can_call = call_user_func_array(array($this, $arAction[0]), $arAction[1]);
+			}
+
+
 			if ( $can_call ) {
 				$return = call_user_func_array(array($this, $method), $arguments);
 				echo json_encode($return);
